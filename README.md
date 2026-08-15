@@ -5,7 +5,7 @@ A cross-platform Bluetooth chat application built with **Kotlin Multiplatform** 
 ## 🚀 Features
 
 - **Device Discovery**: Scan for nearby Bluetooth devices.
-- **Real-time Chat**: Exchange text messages over a secure BLE connection.
+- **Real-time Chat**: Exchange text messages over a BLE connection.
 - **Cross-Platform**: Shared UI and logic across Android and iOS.
 
 ## 📱 Screenshots
@@ -18,7 +18,7 @@ A cross-platform Bluetooth chat application built with **Kotlin Multiplatform** 
 
 - **[Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.html)**: Shared business logic and infrastructure.
 - **[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/)**: Declarative UI shared between Android and iOS.
-- **[Blue Falcon](https://github.com/Blue-Falcon/Blue-Falcon)**: Multiplatform Bluetooth Low Energy library.
+- **[Blue Falcon](https://github.com/Reedyuk/blue-falcon)**: Multiplatform Bluetooth Low Energy library.
 - **[Koin](https://insert-koin.io/)**: Pragmatic lightweight dependency injection.
 - **[Kermit](https://github.com/touchlab/Kermit)**: Kotlin Multiplatform logging utility.
 
