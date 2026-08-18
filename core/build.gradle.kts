@@ -35,7 +35,7 @@ kotlin {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
-    val falconVersion = "3.7.0"
+    val falconVersion = "3.7.1"
     sourceSets {
         commonMain {
             dependencies {
