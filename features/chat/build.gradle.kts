@@ -57,6 +57,7 @@ kotlin {
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
+            implementation(libs.jetbrains.material3.adaptive)
             implementation(project(":core"))
         }
         commonTest.dependencies {

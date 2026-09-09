@@ -58,6 +58,8 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.jetbrains.navigation3.ui)
             implementation(libs.jetbrains.lifecycle.viewmodel.navigation3)
+            implementation(libs.jetbrains.material3.adaptive.navigation3)
+            implementation(libs.jetbrains.material3.adaptive)
 
             api(libs.koin.core)
             implementation(libs.koin.compose)

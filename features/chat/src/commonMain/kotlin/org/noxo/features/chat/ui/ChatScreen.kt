@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material3.*
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,6 +34,7 @@ import org.noxo.features.chat.resources.status_error
 fun ChatScreen(
     deviceId: String,
     onBackClick: () -> Unit = {},
+    showBackButton: Boolean = true,
     modifier: Modifier = Modifier,
     viewModel: ChatViewModel = koinViewModel { parametersOf(deviceId) }
 ) {
@@ -43,6 +45,7 @@ fun ChatScreen(
         deviceId = deviceId,
         uiState = uiState,
         onBackClick = onBackClick,
+        showBackButton = showBackButton,
         onSendMessage = { viewModel.sendMessage(it) },
         modifier = modifier
     )
@@ -54,21 +57,26 @@ fun ChatContent(
     deviceId: String,
     uiState: ChatUIState,
     onBackClick: () -> Unit,
+    showBackButton: Boolean = true,
     onSendMessage: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     var textInput by remember { mutableStateOf("") }
+    val topAppBarState = rememberTopAppBarState()
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(topAppBarState)
 
     Scaffold(
-        modifier = modifier,
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
             TopAppBar(
+                scrollBehavior = scrollBehavior,
                 title = { Text(stringResource(Res.string.chat_title, deviceId)) },
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.back))
-                    }
-                },
+                    if (showBackButton) {
+                        IconButton(onClick = onBackClick) {
+                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        }
+                    }},
                 actions = {
                     if (uiState.isLoading) {
                         CircularProgressIndicator(
@@ -186,6 +194,72 @@ private fun ChatPreview() {
                 connectionStatus = ConnectionStatus.Connected
             ),
             onBackClick = {},
+            showBackButton = true,
+            onSendMessage = {}
+        )
+    }
+}
+
+private val sampleChatUIState = ChatUIState(
+    messages = listOf(
+        Message("Hello!", false, 1000L),
+        Message("Hi there!", true, 2000L),
+        Message("How are you?", false, 3000L)
+    ),
+    connectionStatus = ConnectionStatus.Connected
+)
+
+@Preview(widthDp = 411, heightDp = 731, name = "Phone")
+@Composable
+private fun ChatPreviewPhone() {
+    MaterialTheme {
+        ChatContent(
+            deviceId = "Pixel 8",
+            uiState = sampleChatUIState,
+            onBackClick = {},
+            showBackButton = true,
+            onSendMessage = {}
+        )
+    }
+}
+
+@Preview(widthDp = 673, heightDp = 411, name = "Foldable")
+@Composable
+private fun ChatPreviewFoldable() {
+    MaterialTheme {
+        ChatContent(
+            deviceId = "Foldable",
+            uiState = sampleChatUIState,
+            onBackClick = {},
+            showBackButton = true,
+            onSendMessage = {}
+        )
+    }
+}
+
+@Preview(widthDp = 1456, heightDp = 900, name = "Tablet")
+@Composable
+private fun ChatPreviewTablet() {
+    MaterialTheme {
+        ChatContent(
+            deviceId = "Tablet",
+            uiState = sampleChatUIState,
+            onBackClick = {},
+            showBackButton = false,
+            onSendMessage = {}
+        )
+    }
+}
+
+@Preview(widthDp = 1600, heightDp = 900, name = "Desktop")
+@Composable
+private fun ChatPreviewDesktop() {
+    MaterialTheme {
+        ChatContent(
+            deviceId = "Desktop",
+            uiState = sampleChatUIState,
+            onBackClick = {},
+            showBackButton = false,
             onSendMessage = {}
         )
     }
