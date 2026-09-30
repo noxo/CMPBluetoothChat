@@ -14,9 +14,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import org.noxo.core.domain.model.ConnectionStatus
+import org.noxo.features.chat.resources.Res
+import org.noxo.features.chat.resources.back
+import org.noxo.features.chat.resources.chat_title
+import org.noxo.features.chat.resources.connection_status
+import org.noxo.features.chat.resources.message_placeholder
+import org.noxo.features.chat.resources.send
+import org.noxo.features.chat.resources.status_connected
+import org.noxo.features.chat.resources.status_connecting
+import org.noxo.features.chat.resources.status_disconnected
+import org.noxo.features.chat.resources.status_error
 
 @Composable
 fun ChatScreen(
@@ -52,10 +63,10 @@ fun ChatContent(
         modifier = modifier,
         topBar = {
             TopAppBar(
-                title = { Text("Chat: $deviceId") },
+                title = { Text(stringResource(Res.string.chat_title, deviceId)) },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(Res.string.back))
                     }
                 },
                 actions = {
@@ -81,7 +92,7 @@ fun ChatContent(
                     value = textInput,
                     onValueChange = { textInput = it },
                     modifier = Modifier.weight(1f),
-                    placeholder = { Text("Type a message...") },
+                    placeholder = { Text(stringResource(Res.string.message_placeholder)) },
                     enabled = uiState.connectionStatus == ConnectionStatus.Connected
                 )
                 IconButton(
@@ -93,7 +104,7 @@ fun ChatContent(
                     },
                     enabled = textInput.isNotBlank() && uiState.connectionStatus == ConnectionStatus.Connected
                 ) {
-                    Icon(Icons.AutoMirrored.Filled.Send, contentDescription = "Send")
+                    Icon(Icons.AutoMirrored.Filled.Send, contentDescription = stringResource(Res.string.send))
                 }
             }
         }
@@ -109,7 +120,7 @@ fun ChatContent(
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Text(
-                        text = "Status: ${uiState.connectionStatus}",
+                        text = stringResource(Res.string.connection_status, uiState.connectionStatus.label()),
                         modifier = Modifier.padding(8.dp),
                         color = MaterialTheme.colorScheme.onErrorContainer
                     )
@@ -128,6 +139,16 @@ fun ChatContent(
         }
     }
 }
+
+@Composable
+private fun ConnectionStatus.label(): String = stringResource(
+    when (this) {
+        ConnectionStatus.Disconnected -> Res.string.status_disconnected
+        ConnectionStatus.Connecting -> Res.string.status_connecting
+        ConnectionStatus.Connected -> Res.string.status_connected
+        ConnectionStatus.Error -> Res.string.status_error
+    }
+)
 
 @Composable
 fun MessageItem(message: Message) {

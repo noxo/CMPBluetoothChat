@@ -1,0 +1,11 @@
+<resources>
+    <string name="chat_title">Keskustelu: %1$s</string>
+    <string name="back">Takaisin</string>
+    <string name="message_placeholder">Kirjoita viesti…</string>
+    <string name="send">Lähetä</string>
+    <string name="connection_status">Tila: %1$s</string>
+    <string name="status_disconnected">Ei yhteyttä</string>
+    <string name="status_connecting">Yhdistetään</string>
+    <string name="status_connected">Yhdistetty</string>
+    <string name="status_error">Virhe</string>
+</resources>

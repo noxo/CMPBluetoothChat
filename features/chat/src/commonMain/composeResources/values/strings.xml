@@ -1,0 +1,11 @@
+<resources>
+    <string name="chat_title">Chat: %1$s</string>
+    <string name="back">Back</string>
+    <string name="message_placeholder">Type a message…</string>
+    <string name="send">Send</string>
+    <string name="connection_status">Status: %1$s</string>
+    <string name="status_disconnected">Disconnected</string>
+    <string name="status_connecting">Connecting</string>
+    <string name="status_connected">Connected</string>
+    <string name="status_error">Error</string>
+</resources>

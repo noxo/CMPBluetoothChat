@@ -25,8 +25,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.noxo.core.domain.model.BluetoothDevice
+import org.noxo.features.listdevices.resources.Res
+import org.noxo.features.listdevices.resources.retry
+import org.noxo.features.listdevices.resources.scan_failed
+import org.noxo.features.listdevices.resources.searching_devices
+import org.noxo.features.listdevices.resources.unnamed_device
 
 
 @Composable
@@ -63,7 +69,7 @@ fun ListDevicesContent(
             TopAppBar(
                 title = {
                     Row {
-                        Text("Searching devices")
+                        Text(stringResource(Res.string.searching_devices))
                         if (state.scanning == OperationState.Started) {
                             Spacer(modifier = Modifier.width(16.dp))
                             CircularProgressIndicator(
@@ -90,7 +96,7 @@ fun ListDevicesContent(
                             .padding(16.dp)
                     ) {
                         Text(
-                            text = device.name ?: "Unnamed Device",
+                            text = device.name ?: stringResource(Res.string.unnamed_device),
                             style = MaterialTheme.typography.titleMedium
                         )
                         Text(
@@ -116,10 +122,10 @@ fun FailedAlert(
         ) {
             Column(modifier = Modifier.padding(8.dp)) {
                 Text(
-                    text = "Failed start scan or advertise, see logs for error. Running on emulator or no permissions?",
+                    text = stringResource(Res.string.scan_failed),
                 )
                 Button(onClick = {  onRetryClick() }) {
-                    Text(text = "Retry")
+                    Text(text = stringResource(Res.string.retry))
                 }
             }
         }

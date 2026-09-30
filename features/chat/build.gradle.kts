@@ -68,3 +68,8 @@ kotlin {
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
 }
+
+compose.resources {
+    packageOfResClass = "org.noxo.features.chat.resources"
+    generateResClass = always
+}

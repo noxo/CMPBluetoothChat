@@ -67,3 +67,8 @@ kotlin {
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
 }
+
+compose.resources {
+    packageOfResClass = "org.noxo.features.listdevices.resources"
+    generateResClass = always
+}
